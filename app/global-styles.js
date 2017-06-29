@@ -6,6 +6,7 @@ injectGlobal`
   body {
     height: 100%;
     width: 100%;
+    font-size: 12px;
   }
 
   body {
@@ -17,7 +18,7 @@ injectGlobal`
   }
 
   #app {
-    background-color: #fafafa;
+    background-color: #FAFAFA;
     min-height: 100%;
     min-width: 100%;
   }
@@ -26,5 +27,13 @@ injectGlobal`
   label {
     font-family: Georgia, Times, 'Times New Roman', serif;
     line-height: 1.5em;
+  }
+
+  .u-m--n {
+    margin: 0;
+  }
+
+  .u-p--n {
+    padding: 0;
   }
 `;

@@ -12,16 +12,22 @@
  */
 
 import React from 'react';
+import { Navbar } from 'react-bootstrap';
 
 export default class App extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-
   static propTypes = {
     children: React.PropTypes.node,
   };
-
   render() {
     return (
       <div>
+        <Navbar inverse>
+          <Navbar.Header>
+            <Navbar.Brand>
+              <span>DoctorNow</span>
+            </Navbar.Brand>
+          </Navbar.Header>
+        </Navbar>
         {React.Children.toArray(this.props.children)}
       </div>
     );
