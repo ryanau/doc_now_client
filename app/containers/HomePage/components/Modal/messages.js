@@ -38,4 +38,12 @@ export default defineMessages({
     id: 'app.components.Modal.bookingNumber',
     defaultMessage: 'Booking number:',
   },
+  hkidWhy: {
+    id: 'app.components.Modal.hkidWhy',
+    defaultMessage: 'Clinics need this for verfication purposes',
+  },
+  phoneWhy: {
+    id: 'app.components.Modal.phoneWhy',
+    defaultMessage: "We'll send you a SMS to complete the booking",
+  },
 });

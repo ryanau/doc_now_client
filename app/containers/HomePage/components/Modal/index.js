@@ -12,11 +12,14 @@ import { Modal as BModal, Button, FormGroup, ControlLabel, HelpBlock, FormContro
 
 import messages from './messages';
 
-const MIN = {
-  name: 1,
-  phone: 8,
-  hkid: 8,
+const validate = {
+  name: (name) => name.length > 0,
+  phone: (phone) => phone.length === 8,
+  hkid: (hkid) => !!hkid.match(/^[a-zA-Z]{1}\d{7}$/),
 };
+
+const validateFields = ({ name, phone, hkid }) =>
+  validate.name(name) && validate.phone(phone) && validate.hkid(hkid);
 
 class Modal extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -28,8 +31,8 @@ class Modal extends React.Component { // eslint-disable-line react/prefer-statel
     };
   }
   validate = (type) => {
-    const length = this.state[type].length;
-    if (length >= MIN[type]) return 'success';
+    const value = this.state[type];
+    if (validate[type](value)) return 'success';
     return 'error';
   }
   handleChange = (type, e) => {
@@ -62,6 +65,7 @@ class Modal extends React.Component { // eslint-disable-line react/prefer-statel
           type="text"
           placeholder="Enter text"
           onChange={(e) => this.handleChange('name', e)}
+          autoFocus
         />
         <FormControl.Feedback />
         <HelpBlock><FormattedMessage {...messages.required} /></HelpBlock>
@@ -73,11 +77,11 @@ class Modal extends React.Component { // eslint-disable-line react/prefer-statel
         <ControlLabel><FormattedMessage {...messages.phone} /></ControlLabel>
         <FormControl
           type="number"
-          placeholder="e.g. 31006974"
+          placeholder="91234567"
           onChange={(e) => this.handleChange('phone', e)}
         />
         <FormControl.Feedback />
-        <HelpBlock><FormattedMessage {...messages.required} /></HelpBlock>
+        <HelpBlock><FormattedMessage {...messages.phoneWhy} /></HelpBlock>
       </FormGroup>
       <FormGroup
         controlId="hkid"
@@ -86,17 +90,20 @@ class Modal extends React.Component { // eslint-disable-line react/prefer-statel
         <ControlLabel><FormattedMessage {...messages.hkid} /></ControlLabel>
         <FormControl
           type="text"
-          placeholder="e.g. A12345678"
+          placeholder="A1234567"
           onChange={(e) => this.handleChange('hkid', e)}
         />
         <FormControl.Feedback />
-        <HelpBlock><FormattedMessage {...messages.required} /></HelpBlock>
+        <HelpBlock><FormattedMessage {...messages.hkidWhy} /></HelpBlock>
       </FormGroup>
     </form>
     )
   render() {
-    const d = this.props.doctor;
-    const buttonText = this.props.isSubmitted ? 'outroButton' : 'reserve';
+    const { doctor: d, isSubmitted } = this.props;
+    const { name, phone, hkid } = this.state;
+    const buttonText = isSubmitted ? 'outroButton' : 'reserve';
+    const isButtonDisabled = !validateFields({ name, phone, hkid });
+
     return (
       <ModalOverlay>
         <BModal show onHide={this.props.closeModal}>
@@ -112,6 +119,7 @@ class Modal extends React.Component { // eslint-disable-line react/prefer-statel
             <Button
               onClick={this.handleButtonClicked}
               bsStyle="success"
+              disabled={isButtonDisabled}
             >
               <FormattedMessage {...messages[buttonText]} />
             </Button>
