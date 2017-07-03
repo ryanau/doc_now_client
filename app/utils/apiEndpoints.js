@@ -1,4 +1,4 @@
-const api = (process.env.NODE_ENV === 'production' ? 'https://doctor-now-api.herokuapp.com' : 'http://localhost:3000/');
+const api = (process.env.NODE_ENV === 'production' ? 'https://doctor-now-api.herokuapp.com/' : 'http://localhost:3000/');
 const wsApi = api.replace(/http.+\/\//i, 'ws://');
 
 const apiEndpoints = {
