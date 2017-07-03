@@ -8,14 +8,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
-import { Modal as BModal, Button, FormGroup, ControlLabel, HelpBlock, FormControl } from 'react-bootstrap';
+import { Modal as BModal, Button } from 'react-bootstrap';
+import InputMask from 'react-input-mask';
 
 import messages from './messages';
 
 const validate = {
   name: (name) => name.length > 0,
-  phone: (phone) => phone.length === 8,
-  hkid: (hkid) => !!hkid.match(/^[a-zA-Z]{1}\d{7}$/),
+  phone: (phone) => !!phone.match(/^\+{1}\d{3}\s{1}\d{4}-\d{4}$/),
+  hkid: (hkid) => !!hkid.match(/^[a-zA-Z]{1}\d{6}\(\d{1}\)$/),
 };
 
 const validateFields = ({ name, phone, hkid }) =>
@@ -29,6 +30,14 @@ class Modal extends React.Component { // eslint-disable-line react/prefer-statel
       phone: '',
       hkid: '',
     };
+  }
+  handleKeydown = (e) => {
+    const { name, phone, hkid } = this.state;
+    const { submitBooking, doctor } = this.props;
+
+    if (e.which === 13 && validateFields({ name, phone, hkid })) {
+      submitBooking({ ...this.state, doctor_id: doctor.get('id') });
+    }
   }
   validate = (type) => {
     const value = this.state[type];
@@ -53,51 +62,43 @@ class Modal extends React.Component { // eslint-disable-line react/prefer-statel
       <p><FormattedMessage {...messages.outro} /></p>
       <p><FormattedMessage {...messages.bookingNumber} /> {this.props.bookingNumber}</p>
     </section>
-    )
+  )
   renderNormalView = () => (
-    <form>
-      <FormGroup
-        controlId="name"
-        validationState={this.validate('name')}
-      >
-        <ControlLabel><FormattedMessage {...messages.name} /></ControlLabel>
-        <FormControl
-          type="text"
-          placeholder="Enter text"
-          onChange={(e) => this.handleChange('name', e)}
+    <Form>
+      <InputGroup>
+        <label htmlFor="modal__input--name"><FormattedMessage {...messages.name} /></label>
+        <Input
           autoFocus
-        />
-        <FormControl.Feedback />
-        <HelpBlock><FormattedMessage {...messages.required} /></HelpBlock>
-      </FormGroup>
-      <FormGroup
-        controlId="phone"
-        validationState={this.validate('phone')}
-      >
-        <ControlLabel><FormattedMessage {...messages.phone} /></ControlLabel>
-        <FormControl
-          type="number"
-          placeholder="91234567"
-          onChange={(e) => this.handleChange('phone', e)}
-        />
-        <FormControl.Feedback />
-        <HelpBlock><FormattedMessage {...messages.phoneWhy} /></HelpBlock>
-      </FormGroup>
-      <FormGroup
-        controlId="hkid"
-        validationState={this.validate('hkid')}
-      >
-        <ControlLabel><FormattedMessage {...messages.hkid} /></ControlLabel>
-        <FormControl
           type="text"
-          placeholder="A1234567"
-          onChange={(e) => this.handleChange('hkid', e)}
+          id="modal__input--name"
+          onChange={(e) => this.handleChange('name', e)}
+          onKeyDown={this.handleKeydown}
         />
-        <FormControl.Feedback />
-        <HelpBlock><FormattedMessage {...messages.hkidWhy} /></HelpBlock>
-      </FormGroup>
-    </form>
-    )
+      </InputGroup>
+      <InputGroup>
+        <label htmlFor="modal__input--phone"><FormattedMessage {...messages.phone} /></label>
+        <StyledInput
+          alwaysShowMask
+          id="modal__input--phone"
+          mask="+852 9999-9999"
+          onChange={(e) => this.handleChange('phone', e)}
+          onKeyDown={this.handleKeydown}
+        />
+        <Why><FormattedMessage {...messages.phoneWhy} /></Why>
+      </InputGroup>
+      <InputGroup>
+        <label htmlFor="modal__input--hkid"><FormattedMessage {...messages.hkid} /></label>
+        <StyledInput
+          alwaysShowMask
+          id="modal__input--hkid"
+          mask="a999999(9)"
+          onChange={(e) => this.handleChange('hkid', e)}
+          onKeyDown={this.handleKeydown}
+        />
+        <Why><FormattedMessage {...messages.hkidWhy} /></Why>
+      </InputGroup>
+    </Form>
+  );
   render() {
     const { doctor: d, isSubmitted } = this.props;
     const { name, phone, hkid } = this.state;
@@ -105,7 +106,7 @@ class Modal extends React.Component { // eslint-disable-line react/prefer-statel
     const isButtonDisabled = !validateFields({ name, phone, hkid });
 
     return (
-      <ModalOverlay>
+      <div>
         <BModal show onHide={this.props.closeModal}>
           <BModal.Header closeButton>
             <BModal.Title>
@@ -125,12 +126,50 @@ class Modal extends React.Component { // eslint-disable-line react/prefer-statel
             </Button>
           </BModal.Footer>
         </BModal>
-      </ModalOverlay>
+      </div>
     );
   }
 }
 
-const ModalOverlay = styled.div`
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+`;
+
+const InputGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0;
+`;
+
+const Input = styled.input`
+  width: 100%;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+`;
+
+const StyledInput = styled(InputMask)`
+  width: 100%;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+`;
+
+const Why = styled.p`
+  margin-top: 0.5rem;
 `;
 
 const { object, func, bool, string } = PropTypes;
