@@ -1,1 +1,27 @@
-[]
+{
+  "app.components.HomePage.english": "En",
+  "app.components.HomePage.errorText": "We cannot obtain your geolocation, please try again.",
+  "app.components.HomePage.fetchingText": "Finding nearby doctors...",
+  "app.components.HomePage.header": "",
+  "app.components.HomePage.intro": "You can now reserve a doctor's appointment nearby easily through Doctornow.",
+  "app.components.HomePage.loadDoctors": "Search for nearby doctors now!",
+  "app.components.HomePage.locatingText": "We need your location to find nearby doctors.",
+  "app.components.HomePage.simplified": "简",
+  "app.components.HomePage.traditional": "繁",
+  "app.components.ListItem.lessInfoButton": "Less Info -",
+  "app.components.ListItem.min": "mins",
+  "app.components.ListItem.moreInfoButton": "More Info +",
+  "app.components.ListItem.reserveButton": "Book",
+  "app.components.Modal.bookingNumber": "Booking number:",
+  "app.components.Modal.hkid": "HKID",
+  "app.components.Modal.hkidWhy": "Clinics need this for verfication purposes",
+  "app.components.Modal.name": "Name",
+  "app.components.Modal.outro": "Booking submitted! Please wait for a confirmation text message to complete the booking process.",
+  "app.components.Modal.outroButton": "Got it",
+  "app.components.Modal.phone": "Phone",
+  "app.components.Modal.phoneWhy": "We'll send you a SMS to complete the booking",
+  "app.components.Modal.required": "Required",
+  "app.components.Modal.reserve": "Submit Booking",
+  "app.components.NotFoundPage.header": "This is NotFoundPage component!",
+  "app.components.Spinner.loading": "Loading..."
+}

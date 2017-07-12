@@ -12,9 +12,9 @@ const getDoctors = createSelector(
   (state) => state.get('doctors'),
 );
 
-const getIsLoading = createSelector(
+const getStatus = createSelector(
   selectHomePage,
-  (state) => state.get('isLoading'),
+  (state) => state.get('status'),
 );
 
 const getDoctorSelected = createSelector(
@@ -34,7 +34,7 @@ const getBookingNumber = createSelector(
 
 export {
   getDoctors,
-  getIsLoading,
+  getStatus,
   getIsModalOpen,
   getDoctorSelected,
   getIsSubmitted,

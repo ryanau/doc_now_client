@@ -9,9 +9,9 @@ const selectLanguage = (state) => state.get('language');
  * Select the language locale
  */
 
-const makeSelectLocale = () => createSelector(
+const makeSelectLocale = createSelector(
   selectLanguage,
-  (languageState) => languageState.get('locale')
+  (languageState) => languageState.get('locale'),
 );
 
 export {

@@ -11,6 +11,7 @@ import {
   CLOSE_MODAL,
   SUBMIT_BOOKING,
   BOOKING_SUBMITTED,
+  CHANGE_STATUS,
 } from './constants';
 
 export function loadDoctors(params) {
@@ -50,6 +51,13 @@ export function submitBooking(data) {
 export function bookingSubmitted(data) {
   return {
     type: BOOKING_SUBMITTED,
+    payload: data,
+  };
+}
+
+export function changeStatus(data) {
+  return {
+    type: CHANGE_STATUS,
     payload: data,
   };
 }
