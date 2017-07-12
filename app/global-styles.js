@@ -28,6 +28,10 @@ injectGlobal`
     line-height: 1.5em;
   }
 
+  .label {
+    padding-top: 0.4em;
+  }
+
   .u-m--n {
     margin: 0;
   }

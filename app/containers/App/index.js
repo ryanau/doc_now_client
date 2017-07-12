@@ -21,7 +21,7 @@ export default class App extends React.PureComponent { // eslint-disable-line re
   render() {
     return (
       <div>
-        <Navbar inverse>
+        <Navbar>
           <Navbar.Header>
             <Navbar.Brand>
               <span>DoctorNow</span>

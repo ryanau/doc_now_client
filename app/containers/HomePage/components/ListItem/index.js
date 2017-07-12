@@ -16,36 +16,29 @@ class ListItem extends React.PureComponent {
   handleToggleExpand = () => {
     this.setState({ isExpanded: !this.state.isExpanded });
   }
-  renderExpanded() {
-    const d = this.props.doctor;
-    return (
-      <Expanded>
-        <p><Glyphicon glyph="home" /> {d.get('chinese_address')}</p>
-        <p><Glyphicon glyph="earphone" /> {d.get('phone')}</p>
-      </Expanded>
-    );
-  }
+  // renderExpanded() {
+  //   return (
+  //     <Expanded>
+  //     </Expanded>
+  //   );
+  // }
   render() {
     const d = this.props.doctor;
-    const buttonText = this.state.isExpanded ?
-      'lessInfoButton' :
-      'moreInfoButton';
+    // const buttonText = this.state.isExpanded ?
+    //   'lessInfoButton' :
+    //   'moreInfoButton';
     return (
       <ItemWrapper>
         <ListGroupItem>
           <FixedView>
             <Description>
-              {d.get('chinese_name')} <Label bsStyle="info">{d.get('walk')} <FormattedMessage {...messages.min} /></Label>
+              {d.get('chinese_name')} <Label bsStyle="info"><FormattedMessage {...messages.walk} /> {d.get('walk')} <FormattedMessage {...messages.min} /></Label>
             </Description>
-            {this.state.isExpanded && this.renderExpanded()}
             <Buttons>
               <ButtonGroup>
-                <button
-                  onClick={this.handleToggleExpand}
-                  className="u-p--n"
-                >
-                  <FormattedMessage {...messages[buttonText]} />
-                </button>
+                <Address>
+                  <p><Glyphicon glyph="home" /> {d.get('chinese_address')}</p>
+                </Address>
                 <Button
                   bsStyle="success"
                   bsSize="small"
@@ -61,6 +54,10 @@ class ListItem extends React.PureComponent {
     );
   }
 }
+
+const Address = styled.div`
+  margin-right: 2rem;
+`;
 
 const Expanded = styled.section`
   padding: 0.6rem;
@@ -82,7 +79,7 @@ const Buttons = styled.section`
 `;
 
 const ItemWrapper = styled.div`
-  width: 50%;
+  width: 100%;
   padding: 0 0.2rem;
   margin-bottom: 0.6rem;
 `;
