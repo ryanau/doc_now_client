@@ -16,6 +16,7 @@ import {
   INITIAL,
   FETCHING,
   LOADED,
+  DISPLAY_ERROR,
 } from './constants';
 
 const initialState = fromJS({
@@ -24,6 +25,7 @@ const initialState = fromJS({
   isModalOpen: false,
   doctorSelected: null,
   bookingNumber: null,
+  error: null,
 });
 
 function homePageReducer(state = initialState, { type, payload }) {
@@ -49,6 +51,9 @@ function homePageReducer(state = initialState, { type, payload }) {
     }
     case CHANGE_STATUS: {
       return state.set('status', payload);
+    }
+    case DISPLAY_ERROR: {
+      return state.set('error', payload);
     }
     default:
       return state;

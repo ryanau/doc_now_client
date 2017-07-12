@@ -12,7 +12,15 @@ import {
   SUBMIT_BOOKING,
   BOOKING_SUBMITTED,
   CHANGE_STATUS,
+  DISPLAY_ERROR,
 } from './constants';
+
+export function displayError(error) {
+  return {
+    type: DISPLAY_ERROR,
+    payload: error,
+  };
+}
 
 export function loadDoctors(params) {
   return {

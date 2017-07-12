@@ -16,17 +16,8 @@ class ListItem extends React.PureComponent {
   handleToggleExpand = () => {
     this.setState({ isExpanded: !this.state.isExpanded });
   }
-  // renderExpanded() {
-  //   return (
-  //     <Expanded>
-  //     </Expanded>
-  //   );
-  // }
   render() {
     const d = this.props.doctor;
-    // const buttonText = this.state.isExpanded ?
-    //   'lessInfoButton' :
-    //   'moreInfoButton';
     return (
       <ItemWrapper>
         <ListGroupItem>
@@ -35,9 +26,10 @@ class ListItem extends React.PureComponent {
               {d.get('chinese_name')} <Label bsStyle="info"><FormattedMessage {...messages.walk} /> {d.get('walk')} <FormattedMessage {...messages.min} /></Label>
             </Description>
             <Buttons>
-              <ButtonGroup>
+              <InfoGroup>
                 <Address>
                   <p><Glyphicon glyph="home" /> {d.get('chinese_address')}</p>
+                  <p><Glyphicon glyph="ok" /> <FormattedMessage {...messages.specialty} /></p>
                 </Address>
                 <Button
                   bsStyle="success"
@@ -46,7 +38,7 @@ class ListItem extends React.PureComponent {
                 >
                   <FormattedMessage {...messages.reserveButton} />
                 </Button>
-              </ButtonGroup>
+              </InfoGroup>
             </Buttons>
           </FixedView>
         </ListGroupItem>
@@ -57,11 +49,6 @@ class ListItem extends React.PureComponent {
 
 const Address = styled.div`
   margin-right: 2rem;
-`;
-
-const Expanded = styled.section`
-  padding: 0.6rem;
-  border-top: 1px solid #e8ebe9;
 `;
 
 const Description = styled.section`
@@ -93,10 +80,10 @@ const ListGroupItem = styled.div`
 const FixedView = styled.div`
 `;
 
-const ButtonGroup = styled.div`
+const InfoGroup = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
 `;
 
 ListItem.propTypes = {

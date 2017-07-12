@@ -1,6 +1,5 @@
 {
   "app.components.HomePage.english": "En",
-  "app.components.HomePage.errorText": "We cannot obtain your geolocation, please try again.",
   "app.components.HomePage.fetchingText": "Finding nearby doctors...",
   "app.components.HomePage.header": "",
   "app.components.HomePage.intro": "You can now reserve a doctor's appointment nearby easily through Doctornow.",
@@ -13,6 +12,7 @@
   "app.components.ListItem.min": "mins",
   "app.components.ListItem.moreInfoButton": "More Info +",
   "app.components.ListItem.reserveButton": "Book",
+  "app.components.ListItem.specialty": "",
   "app.components.ListItem.walk": "",
   "app.components.Modal.bookingNumber": "Booking number:",
   "app.components.Modal.hkid": "HKID",
@@ -25,5 +25,7 @@
   "app.components.Modal.required": "Required",
   "app.components.Modal.reserve": "Submit Booking",
   "app.components.NotFoundPage.header": "This is NotFoundPage component!",
-  "app.components.Spinner.loading": "Loading..."
+  "app.components.Spinner.loading": "Loading...",
+  "app.components.homepage.declineError": "",
+  "app.components.homepage.noSupportError": ""
 }

@@ -22,9 +22,13 @@ export default defineMessages({
     id: 'app.components.HomePage.loadDoctors',
     defaultMessage: 'Search for nearby doctors now!',
   },
-  errorText: {
-    id: 'app.components.HomePage.errorText',
-    defaultMessage: 'We cannot obtain your geolocation, please try again.',
+  declineError: {
+    id: 'app.components.homepage.declineError',
+    defaultMessage: 'Sorry, we cannot obtain your geolocation. Please refresh the page and permit us in obtaining your geolocation.',
+  },
+  noSupportError: {
+    id: 'app.components.homepage.noSupportError',
+    defaultMessage: 'Sorry, since your browser does not support geolocation functionality, we are unable to locate your nearby doctors.',
   },
   intro: {
     id: 'app.components.HomePage.intro',

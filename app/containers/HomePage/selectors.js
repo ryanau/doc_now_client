@@ -32,6 +32,11 @@ const getBookingNumber = createSelector(
   (state) => state.get('bookingNumber'),
 );
 
+const getError = createSelector(
+  selectHomePage,
+  (state) => state.get('error'),
+);
+
 export {
   getDoctors,
   getStatus,
@@ -39,4 +44,5 @@ export {
   getDoctorSelected,
   getIsSubmitted,
   getBookingNumber,
+  getError,
 };

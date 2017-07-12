@@ -14,7 +14,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { Glyphicon, ButtonToolbar, Jumbotron, Alert, Button } from 'react-bootstrap';
+import { Glyphicon, Jumbotron, Alert, Button } from 'react-bootstrap';
 
 import { changeLocale } from 'containers/LanguageProvider/actions';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
@@ -22,13 +22,13 @@ import Spinner from 'components/Spinner';
 import ListItem from './components/ListItem';
 import Modal from './components/Modal';
 import messages from './messages';
-// import { DEFAULT_LOCALE, TRADITIONAL, SIMPLIFIED } from 'containers/App/constants';
 import {
   loadDoctors,
   openModal,
   closeModal,
   submitBooking,
   changeStatus,
+  displayError,
 } from './actions';
 import {
   getDoctorSelected,
@@ -37,13 +37,13 @@ import {
   getIsModalOpen,
   getIsSubmitted,
   getBookingNumber,
+  getError,
 } from './selectors';
 import {
   INITIAL,
   LOCATING,
   FETCHING,
   LOADED,
-  ERROR,
 } from './constants';
 
 class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -56,14 +56,18 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
     this.props.handleLoadDoctors(params);
   }
   loadGeo = () => {
-    const { triggerChangeStatus } = this.props;
-    const geoError = () => triggerChangeStatus(ERROR);
+    const { triggerChangeStatus, triggerDisplayError } = this.props;
+    const geoError = () => triggerDisplayError('declineError');
     const geoOptions = {
       enableHighAccuracy: true,
       timeout: 10000,
     };
-    navigator.geolocation.getCurrentPosition(this.storePosition, geoError, geoOptions);
-    triggerChangeStatus(LOCATING);
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(this.storePosition, geoError, geoOptions);
+    } else {
+      return triggerDisplayError('noSupportError');
+    }
+    return triggerChangeStatus(LOCATING);
   }
   handleChangeLocale = (locale) => {
     this.props.triggerChangeLocale(locale);
@@ -128,31 +132,13 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
       </StyledJumbotron>
     </div>
     )
-  // renderLanguageSelection = () => {
-      // const { locale } = this.props;
-  //   return (
-  //     <Languages>
-  //       <ButtonToolbar>
-  //         <Button onClick={() => this.handleChangeLocale(TRADITIONAL)} active={locale === TRADITIONAL}>
-  //           <FormattedMessage {...messages.traditional} />
-  //         </Button>
-  //         <Button onClick={() => this.handleChangeLocale(SIMPLIFIED)} active={locale === SIMPLIFIED}>
-  //           <FormattedMessage {...messages.simplified} />
-  //         </Button>
-  //         <Button onClick={() => this.handleChangeLocale(DEFAULT_LOCALE)} active={locale === DEFAULT_LOCALE}>
-  //           <FormattedMessage {...messages.english} />
-  //         </Button>
-  //       </ButtonToolbar>
-  //     </Languages>
-  //   );
-  // }
-  renderError = () => (
+  renderError = (type) => (
     <Alert bsStyle="danger">
-      <FormattedMessage {...messages.errorText} />
+      <FormattedMessage {...messages[type]} />
     </Alert>
     )
   render() {
-    const { status, isModalOpen } = this.props;
+    const { error, status, isModalOpen } = this.props;
     const toRender = () => {
       switch (status) {
         case INITIAL: {
@@ -164,9 +150,6 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
         case FETCHING: {
           return this.renderSpinner('fetchingText');
         }
-        case ERROR: {
-          return this.renderError();
-        }
         case LOADED: {
           return this.renderDoctors();
         }
@@ -177,19 +160,13 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
     };
     return (
       <Container>
-        {toRender()}
+        {error && this.renderError(error)}
+        {!error && toRender()}
         {isModalOpen && this.renderModal()}
       </Container>
     );
   }
 }
-
-// const Languages = styled.section`
-//   position: fixed;
-//   bottom: 0;
-//   margin: 2rem;
-//   right: 0;
-// `
 
 const StyledJumbotron = styled(Jumbotron)`
   padding-left: 2rem;
@@ -227,9 +204,11 @@ HomePage.propTypes = {
   handleSubmitBooking: func.isRequired,
   triggerChangeStatus: func.isRequired,
   triggerChangeLocale: func.isRequired,
+  triggerDisplayError: func.isRequired,
   status: string.isRequired,
   isModalOpen: bool.isRequired,
   isSubmitted: bool.isRequired,
+  error: string,
   doctors: object,
   doctorSelected: object,
   bookingNumber: string,
@@ -243,6 +222,7 @@ export function mapDispatchToProps(dispatch) {
     handleSubmitBooking: (data) => dispatch(submitBooking(data)),
     triggerChangeStatus: (data) => dispatch(changeStatus(data)),
     triggerChangeLocale: (data) => dispatch(changeLocale(data)),
+    triggerDisplayError: (error) => dispatch(displayError(error)),
   };
 }
 
@@ -254,6 +234,7 @@ const mapStateToProps = (state) => ({
   isSubmitted: getIsSubmitted(state),
   bookingNumber: getBookingNumber(state),
   locale: makeSelectLocale(state),
+  error: getError(state),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

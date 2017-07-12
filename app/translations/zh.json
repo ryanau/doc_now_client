@@ -1,8 +1,7 @@
 {
   "app.components.HomePage.english": "En",
-  "app.components.HomePage.errorText": "對不起，我們暫時未能確認你的位置。請稍後再試。",
   "app.components.HomePage.fetchingText": "正在尋找最近的醫生...",
-  "app.components.HomePage.header": "你最近的醫生",
+  "app.components.HomePage.header": "你附近的醫生",
   "app.components.HomePage.intro": "你現在可以透過DoctorNow即時預約最近的醫生。",
   "app.components.HomePage.intro2": "Click below to get started now!",
   "app.components.HomePage.loadDoctors": "立即尋找最近的醫生!",
@@ -13,6 +12,7 @@
   "app.components.ListItem.min": "分鐘",
   "app.components.ListItem.moreInfoButton": "查看更多 +",
   "app.components.ListItem.reserveButton": "預約",
+  "app.components.ListItem.specialty": "普通科",
   "app.components.ListItem.walk": "步行",
   "app.components.Modal.bookingNumber": "預約號碼",
   "app.components.Modal.hkid": "身分證號碼",
@@ -25,5 +25,7 @@
   "app.components.Modal.required": "必須填寫",
   "app.components.Modal.reserve": "立即預約",
   "app.components.NotFoundPage.header": "找不到網頁",
-  "app.components.Spinner.loading": "加載中..."
+  "app.components.Spinner.loading": "加載中...",
+  "app.components.homepage.declineError": "對不起，我們未能確認你的位置。請刷新網頁並同意我們獲取你的定位。",
+  "app.components.homepage.noSupportError": "對不起，因為你的瀏覽器並不支援定位功能，所以我們暫時無法尋找你附近的醫生。"
 }
