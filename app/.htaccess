@@ -19,7 +19,7 @@
   RewriteEngine On
 
   # If its not HTTPS
-  RewriteCond %{HTTPS} off
+  RewriteCond %{HTTPS} on
 
   # Comment out the RewriteCond above, and uncomment the RewriteCond below if you're using a load balancer (e.g. CloudFlare) for SSL
   # RewriteCond %{HTTP:X-Forwarded-Proto} !https
