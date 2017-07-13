@@ -22,7 +22,7 @@
   RewriteCond %{HTTPS} off
 
   # Comment out the RewriteCond above, and uncomment the RewriteCond below if you're using a load balancer (e.g. CloudFlare) for SSL
-  # RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
 
   # Redirect to the same URL with https://, ignoring all further rules if this one is in effect
   RewriteRule ^(.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
