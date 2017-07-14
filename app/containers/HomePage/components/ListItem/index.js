@@ -7,14 +7,9 @@ import { Label, Glyphicon, Button } from 'react-bootstrap';
 import messages from './messages';
 
 class ListItem extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isExpanded: false,
-    };
-  }
-  handleToggleExpand = () => {
-    this.setState({ isExpanded: !this.state.isExpanded });
+  handleButtonClicked = (d) => {
+    mixpanel.track('book_button_clicked');
+    this.props.openModal(d);
   }
   render() {
     const d = this.props.doctor;
@@ -34,7 +29,7 @@ class ListItem extends React.PureComponent {
                 <Button
                   bsStyle="success"
                   bsSize="small"
-                  onClick={() => this.props.openModal(d)}
+                  onClick={() => this.handleButtonClicked(d)}
                 >
                   <FormattedMessage {...messages.reserveButton} />
                 </Button>

@@ -12,6 +12,7 @@ export function* loadDoctors(action) {
   try {
     const url = apiEndpoints.doctors.collection;
     const data = yield call(get, url, action.payload);
+    mixpanel.track('doctors_loaded', { number: data.doctors.length });
     yield put(doctorsLoaded(data));
   } catch (error) {
     console.log(error);

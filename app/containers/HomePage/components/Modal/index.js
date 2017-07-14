@@ -54,8 +54,13 @@ class Modal extends React.Component { // eslint-disable-line react/prefer-statel
     if (isSubmitted) {
       closeModal();
     } else {
+      mixpanel.track('booking_submitted');
       submitBooking({ ...this.state, doctor_id: doctor.get('id') });
     }
+  }
+  handleModalHide = () => {
+    mixpanel.track('doctor_modal_closed');
+    this.props.closeModal();
   }
   renderSubmittedView = () => (
     <section>
@@ -107,7 +112,7 @@ class Modal extends React.Component { // eslint-disable-line react/prefer-statel
 
     return (
       <div>
-        <BModal show onHide={this.props.closeModal}>
+        <BModal show onHide={this.handleModalHide}>
           <BModal.Header closeButton>
             <BModal.Title>
               {`${d.get('chinese_name')} | ${d.get('english_name')}`}

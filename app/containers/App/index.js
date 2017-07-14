@@ -14,6 +14,8 @@
 import React from 'react';
 import { Navbar } from 'react-bootstrap';
 
+import initializeMixpanel from 'utils/mixpanel';
+
 export default class App extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
     children: React.PropTypes.node,
@@ -22,6 +24,7 @@ export default class App extends React.PureComponent { // eslint-disable-line re
     if (process.env.NODE_ENV === 'production' && window.location.protocol === 'http:') {
       window.location.replace('https://www.doctornow.io');
     }
+    initializeMixpanel(document, window, process.env.NODE_ENV);
   }
   render() {
     return (

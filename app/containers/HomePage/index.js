@@ -16,8 +16,6 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Glyphicon, Jumbotron, Alert, Button } from 'react-bootstrap';
 
-import { changeLocale } from 'containers/LanguageProvider/actions';
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import Spinner from 'components/Spinner';
 import ListItem from './components/ListItem';
 import Modal from './components/Modal';
@@ -47,6 +45,9 @@ import {
 } from './constants';
 
 class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  componentDidMount() {
+    mixpanel.track('home_page_landed');
+  }
   storePosition = (position) => {
     this.lat = position.coords.latitude;
     this.lng = position.coords.longitude;
@@ -56,8 +57,12 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
     this.props.handleLoadDoctors(params);
   }
   loadGeo = () => {
+    mixpanel.track('load_html_geolocation');
     const { triggerChangeStatus, triggerDisplayError } = this.props;
-    const geoError = () => triggerDisplayError('declineError');
+    const geoError = () => {
+      mixpanel.track('user_declined_geo');
+      triggerDisplayError('declineError');
+    };
     const geoOptions = {
       enableHighAccuracy: true,
       timeout: 10000,
@@ -65,19 +70,18 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(this.storePosition, geoError, geoOptions);
     } else {
+      mixpanel.track('browser_no_geo_support');
       return triggerDisplayError('noSupportError');
     }
     return triggerChangeStatus(LOCATING);
   }
-  handleChangeLocale = (locale) => {
-    this.props.triggerChangeLocale(locale);
-  }
   renderDoctors = () => {
-    const doctors = this.props.doctors.map((d) => (
+    const { doctors, handleOpenModal } = this.props;
+    const doctorsList = doctors.map((d) => (
       <ListItem
         key={d.get('id')}
         doctor={d}
-        openModal={this.props.handleOpenModal}
+        openModal={handleOpenModal}
       />
     ));
 
@@ -87,7 +91,7 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
           <h1><FormattedMessage {...messages.header} /></h1>
         </Intro>
         <ListGroup>
-          {doctors}
+          {doctorsList}
         </ListGroup>
       </div>
     );
@@ -203,7 +207,6 @@ HomePage.propTypes = {
   handleLoadDoctors: func.isRequired,
   handleSubmitBooking: func.isRequired,
   triggerChangeStatus: func.isRequired,
-  triggerChangeLocale: func.isRequired,
   triggerDisplayError: func.isRequired,
   status: string.isRequired,
   isModalOpen: bool.isRequired,
@@ -221,7 +224,6 @@ export function mapDispatchToProps(dispatch) {
     handleCloseModal: () => dispatch(closeModal()),
     handleSubmitBooking: (data) => dispatch(submitBooking(data)),
     triggerChangeStatus: (data) => dispatch(changeStatus(data)),
-    triggerChangeLocale: (data) => dispatch(changeLocale(data)),
     triggerDisplayError: (error) => dispatch(displayError(error)),
   };
 }
@@ -233,7 +235,6 @@ const mapStateToProps = (state) => ({
   isModalOpen: getIsModalOpen(state),
   isSubmitted: getIsSubmitted(state),
   bookingNumber: getBookingNumber(state),
-  locale: makeSelectLocale(state),
   error: getError(state),
 });
 
