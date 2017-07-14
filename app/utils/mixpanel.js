@@ -7,9 +7,12 @@ for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElemen
 }
 
 export default function (document, window, env) {
+  console.log(env)
   if (env === 'production') {
     loadMixpanel(document, window.mixpanel || []);
+    console.log(process.env.MIXPANEL)
     window.mixpanel.init(process.env.MIXPANEL);
+    debugger
   } else {
     window.mixpanel = {
       track(ev, params) { console.log('MIXPANEL TRACK', ev, params); },

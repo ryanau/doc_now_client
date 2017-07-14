@@ -24,6 +24,7 @@ export default class App extends React.PureComponent { // eslint-disable-line re
     if (process.env.NODE_ENV === 'production' && window.location.protocol === 'http:') {
       window.location.replace('https://www.doctornow.io');
     }
+    console.log('initializing mixpanel')
     initializeMixpanel(document, window, process.env.NODE_ENV);
   }
   render() {
