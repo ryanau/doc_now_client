@@ -18,6 +18,11 @@ export default class App extends React.PureComponent { // eslint-disable-line re
   static propTypes = {
     children: React.PropTypes.node,
   };
+  componentWillMount() {
+    if (process.env.NODE_ENV === 'production' && window.location.protocol === 'http:') {
+      window.location.replace('https://www.doctornow.io');
+    }
+  }
   render() {
     return (
       <div>
