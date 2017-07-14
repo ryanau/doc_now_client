@@ -19,13 +19,13 @@
   RewriteEngine On
 
   # If its not HTTPS
-  # RewriteCond %{HTTPS} off
+  RewriteCond %{HTTPS} !=on
 
   # Comment out the RewriteCond above, and uncomment the RewriteCond below if you're using a load balancer (e.g. CloudFlare, Heroku) for SSL
   RewriteCond %{HTTP:X-Forwarded-Proto} !https
 
   # Redirect to the same URL with https://, ignoring all further rules if this one is in effect
-  RewriteRule ^(.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
   # If we get to here, it means we are on https://
 
