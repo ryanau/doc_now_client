@@ -16,6 +16,7 @@ import { applyRouterMiddleware, Router, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { useScroll } from 'react-router-scroll';
 import 'sanitize.css/sanitize.css';
+import Raven from 'raven-js';
 
 // Import root app
 import App from 'containers/App';
@@ -114,4 +115,7 @@ if (!window.Intl) {
 // we do not want it installed
 if (process.env.NODE_ENV === 'production') {
   require('offline-plugin/runtime').install(); // eslint-disable-line global-require
+  Raven
+    .config('https://bbf6a82ad8684075bb457301bf4176e7@sentry.io/191999')
+    .install();
 }
