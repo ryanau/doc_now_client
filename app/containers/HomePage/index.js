@@ -47,7 +47,6 @@ import {
 class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   componentDidMount() {
     mixpanel.track('home_page_landed');
-    throw new TypeError;
   }
   storePosition = (position) => {
     this.lat = position.coords.latitude;
