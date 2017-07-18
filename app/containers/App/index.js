@@ -13,6 +13,7 @@
 
 import React from 'react';
 import { Navbar } from 'react-bootstrap';
+import styled from 'styled-components';
 
 import initializeMixpanel from 'utils/mixpanel';
 
@@ -30,14 +31,20 @@ export default class App extends React.PureComponent { // eslint-disable-line re
     return (
       <div>
         <Navbar>
-          <Navbar.Header>
-            <Navbar.Brand>
-              <span>DoctorNow</span>
-            </Navbar.Brand>
-          </Navbar.Header>
+          <Brand>
+            <span>DoctorNow</span>
+          </Brand>
         </Navbar>
         {React.Children.toArray(this.props.children)}
       </div>
     );
   }
 }
+
+const Brand = styled.div`
+  text-align: center;
+  font-size: 26px;
+  letter-spacing: -0.5px;
+  color: #31b0d5;
+  margin-top: 0.75rem;
+`;

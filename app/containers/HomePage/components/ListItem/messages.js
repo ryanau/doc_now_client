@@ -22,10 +22,6 @@ export default defineMessages({
     id: 'app.components.ListItem.min',
     defaultMessage: 'mins',
   },
-  walk: {
-    id: 'app.components.ListItem.walk',
-    defaultMessage: 'walk',
-  },
   specialty: {
     id: 'app.components.ListItem.specialty',
     defaultMessage: 'General',

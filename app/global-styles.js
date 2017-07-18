@@ -33,7 +33,7 @@ injectGlobal`
   }
 
   .u-m--n {
-    margin: 0;
+    margin: 0 !important;
   }
 
   .u-p--n {

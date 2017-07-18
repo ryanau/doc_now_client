@@ -14,11 +14,12 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { Glyphicon, Jumbotron, Alert, Button } from 'react-bootstrap';
+import { Alert } from 'react-bootstrap';
 
 import Spinner from 'components/Spinner';
 import ListItem from './components/ListItem';
 import Modal from './components/Modal';
+import Welcome from './components/Welcome';
 import messages from './messages';
 import {
   loadDoctors,
@@ -88,7 +89,7 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
     return (
       <div>
         <Intro>
-          <h1><FormattedMessage {...messages.header} /></h1>
+          <div><FormattedMessage {...messages.header} /></div>
         </Intro>
         <ListGroup>
           {doctorsList}
@@ -121,26 +122,12 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
       />
     );
   }
-  renderWelcome = () => (
-    <div>
-      <StyledJumbotron>
-        <p>
-          <FormattedMessage {...messages.intro} />
-        </p>
-        <Button
-          onClick={this.loadGeo}
-          bsStyle="success"
-        >
-          <FormattedMessage {...messages.loadDoctors} /> <Glyphicon glyph="screenshot" />
-        </Button>
-      </StyledJumbotron>
-    </div>
-    )
   renderError = (type) => (
     <Alert bsStyle="danger">
       <FormattedMessage {...messages[type]} />
     </Alert>
     )
+  renderWelcome = () => <Welcome loadGeo={this.loadGeo} />;
   render() {
     const { error, status, isModalOpen } = this.props;
     const toRender = () => {
@@ -172,14 +159,10 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
   }
 }
 
-const StyledJumbotron = styled(Jumbotron)`
-  padding-left: 2rem;
-  padding-right: 2rem;
-  border-radius: 5px;
-`;
-
 const Intro = styled.div`
+  font-size: 20px;
   margin-left: 0.2rem;
+  margin-bottom: 0.6rem;
 `;
 
 const Center = styled.div`
@@ -197,6 +180,7 @@ const ListGroup = styled.div`
 
 const Container = styled.section`
   margin: 0 1rem;
+  height: calc(100vh - 75px);
 `;
 
 const { object, func, bool, string } = PropTypes;

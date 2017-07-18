@@ -39,11 +39,6 @@ class Modal extends React.Component { // eslint-disable-line react/prefer-statel
       submitBooking({ ...this.state, doctor_id: doctor.get('id') });
     }
   }
-  validate = (type) => {
-    const value = this.state[type];
-    if (validate[type](value)) return 'success';
-    return 'error';
-  }
   handleChange = (type, e) => {
     this.setState({
       [type]: e.target.value,
@@ -124,7 +119,7 @@ class Modal extends React.Component { // eslint-disable-line react/prefer-statel
           <BModal.Footer>
             <Button
               onClick={this.handleButtonClicked}
-              bsStyle="success"
+              bsStyle="info"
               disabled={isButtonDisabled}
             >
               <FormattedMessage {...messages[buttonText]} />
