@@ -5,8 +5,15 @@ import { Button, OverlayTrigger, Popover, Glyphicon } from 'react-bootstrap';
 import messages from './messages';
 
 class AllDistricts extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  constructor(props) {
+    super(props);
+    this.state = {
+      isOpened: false,
+    };
+  }
   trackOpen = () => {
-    mixpanel.track('all_districts_button_clicked');
+    this.setState({ isOpened: !this.state.isOpened });
+    !this.state.isOpened && mixpanel.track('all_districts_button_clicked');
   }
   render() {
     const overlay = (
