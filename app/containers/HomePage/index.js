@@ -17,6 +17,7 @@ import styled from 'styled-components';
 import { Alert } from 'react-bootstrap';
 
 import Spinner from 'components/Spinner';
+import AllDistricts from 'components/buttons/AllDistricts';
 import ListItem from './components/ListItem';
 import Modal from './components/Modal';
 import Welcome from './components/Welcome';
@@ -78,18 +79,26 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
   }
   renderDoctors = () => {
     const { doctors, handleOpenModal } = this.props;
-    const doctorsList = doctors.map((d) => (
-      <ListItem
-        key={d.get('id')}
-        doctor={d}
-        openModal={handleOpenModal}
-      />
-    ));
-
+    let doctorsList;
+    if (doctors.size === 0) {
+      doctorsList = (
+        <StyledAlert bsStyle="info">
+          <FormattedMessage {...messages.noDoctors} />
+        </StyledAlert>
+      );
+    } else {
+      doctorsList = doctors.map((d) => (
+        <ListItem
+          key={d.get('id')}
+          doctor={d}
+          openModal={handleOpenModal}
+        />
+      ));
+    }
     return (
       <div>
         <Intro>
-          <div><FormattedMessage {...messages.header} /></div>
+          <FormattedMessage {...messages.header} /> <AllDistricts />
         </Intro>
         <ListGroup>
           {doctorsList}
@@ -181,6 +190,10 @@ const ListGroup = styled.div`
 const Container = styled.section`
   margin: 0 1rem;
   height: calc(100vh - 75px);
+`;
+
+const StyledAlert = styled(Alert)`
+  width: 100%;
 `;
 
 const { object, func, bool, string } = PropTypes;

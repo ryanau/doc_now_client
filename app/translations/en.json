@@ -1,8 +1,12 @@
 {
+  "app.components.AllDistricts.button": "",
+  "app.components.AllDistricts.popoverContent": "",
+  "app.components.AllDistricts.popoverTitle": "",
   "app.components.HomePage.english": "",
   "app.components.HomePage.fetchingText": "",
   "app.components.HomePage.header": "",
   "app.components.HomePage.locatingText": "",
+  "app.components.HomePage.noDoctors": "",
   "app.components.HomePage.simplified": "",
   "app.components.HomePage.traditional": "",
   "app.components.ListItem.lessInfoButton": "Less Info -",

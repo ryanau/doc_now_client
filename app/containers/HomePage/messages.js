@@ -26,6 +26,10 @@ export default defineMessages({
     id: 'app.components.homepage.noSupportError',
     defaultMessage: 'Sorry, since your browser does not support geolocation functionality, we are unable to locate your nearby doctors.',
   },
+  noDoctors: {
+    id: 'app.components.HomePage.noDoctors',
+    defaultMessage: 'There are no doctors nearby',
+  },
   english: {
     id: 'app.components.HomePage.english',
     defaultMessage: 'En',
