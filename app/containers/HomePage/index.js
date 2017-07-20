@@ -59,7 +59,6 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
     this.props.handleLoadDoctors(params);
   }
   loadGeo = () => {
-    mixpanel.track('load_html_geolocation');
     const { triggerChangeStatus, triggerDisplayError } = this.props;
     const geoError = () => {
       mixpanel.track('user_declined_geo');

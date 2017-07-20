@@ -30,5 +30,9 @@ export default defineMessages({
     id: 'app.components.Welcome.buttonReminder',
     defaultMessage: 'Your browser will ask for your geolocation. Please accept it so we can obtain your location to find your nearest doctors.',
   },
+  useMyLocation: {
+    id: 'app.components.Welcome.useMyLocation',
+    defaultMessage: 'Use my location to search!',
+  },
 });
 

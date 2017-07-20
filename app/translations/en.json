@@ -33,6 +33,7 @@
   "app.components.Welcome.buttonReminder": "",
   "app.components.Welcome.intro": "",
   "app.components.Welcome.loadDoctors": "",
+  "app.components.Welcome.useMyLocation": "",
   "app.components.homepage.declineError": "",
   "app.components.homepage.noSupportError": ""
 }

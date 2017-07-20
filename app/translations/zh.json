@@ -33,6 +33,7 @@
   "app.components.Welcome.buttonReminder": "您的瀏覽器將會詢問您的位置，請選擇“好”以便我們尋找您附近的醫生",
   "app.components.Welcome.intro": "DoctorNow 顯示您附近可即時應診的私家醫生。透過簡易介面網上預約。",
   "app.components.Welcome.loadDoctors": "立即尋找",
+  "app.components.Welcome.useMyLocation": "用我的位置尋找",
   "app.components.homepage.declineError": "對不起，我們未能確認您的位置。請刷新網頁並同意我們獲取您的定位。",
   "app.components.homepage.noSupportError": "對不起，因為您的瀏覽器並不支援定位功能，所以我們暫時無法尋找您附近的醫生。"
 }

@@ -3,10 +3,17 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import { Glyphicon, Jumbotron, Button } from 'react-bootstrap';
+import Experiment from 'react-ab-test/lib/Experiment';
+import Variant from 'react-ab-test/lib/Variant';
+import emitter from 'react-ab-test/lib/emitter';
 
 import messages from './messages';
 
 class Welcome extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  handleLoadButtonClicked = () => {
+    emitter.emitWin('load_html_geolocation');
+    this.props.loadGeo();
+  }
   render() {
     return (
       <Container>
@@ -19,13 +26,26 @@ class Welcome extends React.PureComponent { // eslint-disable-line react/prefer-
           <p className="u-m--n"><Glyphicon glyph="ok" /> <FormattedMessage {...messages.bullet3} /></p>
         </StyledJumbotron>
         <CallToAction>
-          <Button
-            onClick={this.props.loadGeo}
-            bsStyle="info"
-            bsSize="large"
-          >
-            <FormattedMessage {...messages.loadDoctors} /> <Glyphicon glyph="screenshot" />
-          </Button>
+          <Experiment name="load_html_geolocation">
+            <Variant name="search_now">
+              <Button
+                onClick={this.handleLoadButtonClicked}
+                bsStyle="info"
+                bsSize="large"
+              >
+                <FormattedMessage {...messages.loadDoctors} /> <Glyphicon glyph="screenshot" />
+              </Button>
+            </Variant>
+            <Variant name="use_my_location_to_search">
+              <Button
+                onClick={this.handleLoadButtonClicked}
+                bsStyle="info"
+                bsSize="large"
+              >
+                <FormattedMessage {...messages.useMyLocation} /> <Glyphicon glyph="screenshot" />
+              </Button>
+            </Variant>
+          </Experiment>
           <ButtonReminder>
             <p><FormattedMessage {...messages.buttonReminder} /></p>
           </ButtonReminder>

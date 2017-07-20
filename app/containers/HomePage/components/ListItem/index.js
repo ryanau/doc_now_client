@@ -13,7 +13,6 @@ import messages from './messages';
 
 class ListItem extends React.PureComponent {
   handleButtonClicked = (d) => {
-    // mixpanel.track('book_button_clicked');
     emitter.emitWin('book_button_clicked');
     this.props.openModal(d);
   }
