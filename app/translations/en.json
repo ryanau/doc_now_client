@@ -18,6 +18,7 @@
   "app.components.Modal.bookingNumber": "Booking number:",
   "app.components.Modal.hkid": "HKID",
   "app.components.Modal.hkidWhy": "Clinics need this for verfication purposes",
+  "app.components.Modal.intro": "",
   "app.components.Modal.name": "Name",
   "app.components.Modal.outro": "Booking submitted! Please wait for a confirmation text message to complete the booking process.",
   "app.components.Modal.outroButton": "Got it",

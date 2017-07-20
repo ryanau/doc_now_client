@@ -19,8 +19,8 @@ const validate = {
   hkid: (hkid) => !!hkid.match(/^[a-zA-Z]{1}\d{6}\(\d{1}\)$/),
 };
 
-const validateFields = ({ name, phone, hkid }) =>
-  validate.name(name) && validate.phone(phone) && validate.hkid(hkid);
+const validateFields = ({ name, phone }) =>
+  validate.name(name) && validate.phone(phone);
 
 class Modal extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -32,10 +32,10 @@ class Modal extends React.Component { // eslint-disable-line react/prefer-statel
     };
   }
   handleKeydown = (e) => {
-    const { name, phone, hkid } = this.state;
+    const { name, phone } = this.state;
     const { submitBooking, doctor } = this.props;
 
-    if (e.which === 13 && validateFields({ name, phone, hkid })) {
+    if (e.which === 13 && validateFields({ name, phone })) {
       submitBooking({ ...this.state, doctor_id: doctor.get('id') });
     }
   }
@@ -65,6 +65,7 @@ class Modal extends React.Component { // eslint-disable-line react/prefer-statel
   )
   renderNormalView = () => (
     <Form>
+      <p><FormattedMessage {...messages.intro} /></p>
       <InputGroup>
         <label htmlFor="modal__input--name"><FormattedMessage {...messages.name} /></label>
         <Input

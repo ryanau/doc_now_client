@@ -6,6 +6,10 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
+  intro: {
+    id: 'app.components.Modal.intro',
+    defaultMessage: 'Please fill in the following form. The information provided will only be used for reservation purposes only.',
+  },
   reserve: {
     id: 'app.components.Modal.reserve',
     defaultMessage: 'Submit Booking',
