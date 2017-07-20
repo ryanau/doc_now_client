@@ -14,8 +14,12 @@ export default defineMessages({
     id: 'app.components.ListItem.lessInfoButton',
     defaultMessage: 'Less Info -',
   },
-  reserveButton: {
-    id: 'app.components.ListItem.reserveButton',
+  nextStep: {
+    id: 'app.components.ListItem.nextStep',
+    defaultMessage: 'Next',
+  },
+  book: {
+    id: 'app.components.ListItem.book',
     defaultMessage: 'Book',
   },
   min: {

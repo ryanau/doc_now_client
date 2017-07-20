@@ -4,13 +4,17 @@ import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import { Glyphicon, Button } from 'react-bootstrap';
 import WalkIcon from 'react-icons/lib/md/directions-walk';
+import Experiment from 'react-ab-test/lib/Experiment';
+import Variant from 'react-ab-test/lib/Variant';
+import emitter from 'react-ab-test/lib/emitter';
 
 import Label from 'components/Label';
 import messages from './messages';
 
 class ListItem extends React.PureComponent {
   handleButtonClicked = (d) => {
-    mixpanel.track('book_button_clicked');
+    // mixpanel.track('book_button_clicked');
+    emitter.emitWin('book_button_clicked');
     this.props.openModal(d);
   }
   render() {
@@ -35,13 +39,26 @@ class ListItem extends React.PureComponent {
                   <p><Glyphicon glyph="home" /> {d.get('chinese_address')}</p>
                   <p><Glyphicon glyph="ok" /> <FormattedMessage {...messages.specialty} /></p>
                 </Address>
-                <Button
-                  bsStyle="info"
-                  bsSize="small"
-                  onClick={() => this.handleButtonClicked(d)}
-                >
-                  <FormattedMessage {...messages.reserveButton} />
-                </Button>
+                <Experiment name="book_button_clicked">
+                  <Variant name="next_step">
+                    <Button
+                      bsStyle="info"
+                      bsSize="small"
+                      onClick={() => this.handleButtonClicked(d)}
+                    >
+                      <FormattedMessage {...messages.nextStep} />
+                    </Button>
+                  </Variant>
+                  <Variant name="book">
+                    <Button
+                      bsStyle="info"
+                      bsSize="small"
+                      onClick={() => this.handleButtonClicked(d)}
+                    >
+                      <FormattedMessage {...messages.book} />
+                    </Button>
+                  </Variant>
+                </Experiment>
               </InfoGroup>
             </Buttons>
           </FixedView>

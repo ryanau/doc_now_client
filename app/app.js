@@ -18,6 +18,12 @@ import { useScroll } from 'react-router-scroll';
 import 'sanitize.css/sanitize.css';
 import Raven from 'raven-js';
 
+// Import Mixpanel
+import initializeMixpanel from 'utils/mixpanel';
+
+// Import React AB Test
+import mixpanelHelper from 'react-ab-test/lib/helpers/mixpanel';
+
 // Import root app
 import App from 'containers/App';
 
@@ -44,6 +50,10 @@ import './global-styles';
 
 // Import root routes
 import createRoutes from './routes';
+
+// Initializations
+initializeMixpanel(document, window, process.env.NODE_ENV);
+mixpanelHelper.enable();
 
 // Create redux store with history
 // this uses the singleton browserHistory provided by react-router
