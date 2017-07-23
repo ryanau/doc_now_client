@@ -3,12 +3,10 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import { Glyphicon, Button } from 'react-bootstrap';
-import WalkIcon from 'react-icons/lib/md/directions-walk';
 import Experiment from 'react-ab-test/lib/Experiment';
 import Variant from 'react-ab-test/lib/Variant';
 import emitter from 'react-ab-test/lib/emitter';
 
-import Label from 'components/Label';
 import messages from './messages';
 
 class ListItem extends React.PureComponent {
@@ -24,13 +22,6 @@ class ListItem extends React.PureComponent {
           <FixedView>
             <Description>
               {d.chinese_name}
-              <Label>
-                <StyledWalkIcon />
-                {d.walk}
-                <MinWrapper>
-                  <FormattedMessage {...messages.min} />
-                </MinWrapper>
-              </Label>
             </Description>
             <Buttons>
               <InfoGroup>
@@ -104,16 +95,6 @@ const InfoGroup = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-`;
-
-const StyledWalkIcon = styled(WalkIcon)`
-  margin-bottom: 0.2rem;
-  margin-right: 0.2rem;
-  font-size: 16px;
-`;
-
-const MinWrapper = styled.div`
-  margin-left: 0.2rem;
 `;
 
 ListItem.propTypes = {
