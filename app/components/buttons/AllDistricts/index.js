@@ -1,40 +1,31 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { Button, OverlayTrigger, Popover, Glyphicon } from 'react-bootstrap';
+import { Button, Glyphicon } from 'react-bootstrap';
 
 import messages from './messages';
 
 class AllDistricts extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  constructor(props) {
-    super(props);
-    this.state = {
-      isOpened: false,
-    };
-  }
-  trackOpen = () => {
-    this.setState({ isOpened: !this.state.isOpened });
-    !this.state.isOpened && mixpanel.track('all_districts_button_clicked');
+  handleButtonClicked = () => {
+    mixpanel.track('all_districts_button_clicked');
+    this.props.router.push('/areas');
   }
   render() {
-    const overlay = (
-      <Popover id="all-districts" title={<FormattedMessage {...messages.popoverTitle} />}>
-        <FormattedMessage {...messages.popoverContent} />
-      </Popover>
-    );
     return (
-      <OverlayTrigger rootClose trigger="click" placement="bottom" overlay={overlay}>
-        <Button
-          onClick={this.trackOpen}
-          bsStyle="link"
-        >
-          <FormattedMessage {...messages.button} /> <Glyphicon glyph="chevron-right" />
-        </Button>
-      </OverlayTrigger>
+      <Button
+        onClick={this.handleButtonClicked}
+        bsStyle="link"
+      >
+        <FormattedMessage {...messages.button} /> <Glyphicon glyph="chevron-right" />
+      </Button>
     );
   }
 }
 
+const { object } = PropTypes;
+
 AllDistricts.propTypes = {
+  router: object.isRequired,
 };
 
 export default AllDistricts;

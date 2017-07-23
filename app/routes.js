@@ -20,18 +20,112 @@ export default function createRoutes(store) {
     {
       path: '/',
       name: 'home',
+      // onEnter(nextState, replace, callback) {
+      //   if (this.loadedSagas) {
+      //     callback();
+      //     return;
+      //   }
+      //
+      //   // Inject sagas as usual
+      //   const importModules = System.import('containers/HomePage/sagas');
+      //
+      //   importModules.then((sagas) => {
+      //     this.loadedSagas = injectSagas(sagas.default);
+      //     callback();
+      //   });
+      //
+      //   importModules.catch(errorLoading);
+      // },
+      // onLeave() {
+      //   if (this.loadedSagas) {
+      //     this.loadedSagas.forEach((saga) => saga.cancel());
+      //     delete this.loadedSagas;
+      //   }
+      // },
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          import('containers/HomePage'),
-          import('containers/HomePage/reducer'),
-          import('containers/HomePage/sagas'),
+          System.import('containers/HomePage'),
+          System.import('containers/HomePage/reducer'),
         ]);
-
         const renderRoute = loadModule(cb);
-
-        importModules.then(([component, reducer, sagas]) => {
+        importModules.then(([component, reducer]) => {
           injectReducer('homePage', reducer.default);
-          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    }, {
+      path: '/areas',
+      name: 'areas',
+      // onEnter(nextState, replace, callback) {
+      //   if (this.loadedSagas) {
+      //     callback();
+      //     return;
+      //   }
+      //
+      //   // Inject sagas as usual
+      //   const importModules = System.import('containers/Area/sagas');
+      //
+      //   importModules.then((sagas) => {
+      //     this.loadedSagas = injectSagas(sagas.default);
+      //     callback();
+      //   });
+      //
+      //   importModules.catch(errorLoading);
+      // },
+      // onLeave() {
+      //   if (this.loadedSagas) {
+      //     this.loadedSagas.forEach((saga) => saga.cancel());
+      //     delete this.loadedSagas;
+      //   }
+      // },
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/Area'),
+          import('containers/Area/reducer'),
+        ]);
+        const renderRoute = loadModule(cb);
+        importModules.then(([component, reducer]) => {
+          injectReducer('area', reducer.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    }, {
+      path: '/doctors',
+      name: 'doctors',
+      onEnter(nextState, replace, callback) {
+        if (this.loadedSagas) {
+          callback();
+          return;
+        }
+
+        // Inject sagas as usual
+        const importModules = System.import('containers/Doctor/sagas');
+
+        importModules.then((sagas) => {
+          this.loadedSagas = injectSagas(sagas.default);
+          callback();
+        });
+
+        importModules.catch(errorLoading);
+      },
+      onLeave() {
+        if (this.loadedSagas) {
+          this.loadedSagas.forEach((saga) => saga.cancel());
+          delete this.loadedSagas;
+        }
+      },
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/Doctor'),
+          import('containers/Doctor/reducer'),
+        ]);
+        const renderRoute = loadModule(cb);
+        importModules.then(([component, reducer]) => {
+          injectReducer('doctor', reducer.default);
           renderRoute(component);
         });
 
