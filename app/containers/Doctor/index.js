@@ -13,12 +13,12 @@ import Uri from 'jsuri';
 import styled from 'styled-components';
 import { Alert } from 'react-bootstrap';
 
-import Spinner from 'components/Spinner';
 import { getDoctors } from 'entities/doctors/selectors';
 import { loadDoctors, resetDoctors } from 'entities/doctors/actions';
-import messages from './messages';
 import areaMessages from 'containers/Area/messages';
 import AllDistricts from 'components/buttons/AllDistricts';
+import Spinner from 'components/Spinner';
+import messages from './messages';
 import ListItem from './components/ListItem';
 import Modal from './components/Modal';
 import { openModal, closeModal, submitBooking } from './actions';
@@ -100,9 +100,7 @@ export class Doctor extends React.PureComponent { // eslint-disable-line react/p
   }
   renderSpinner() {
     return (
-      <Center>
-        <Spinner />
-      </Center>
+      <Spinner />
     );
   }
   render() {
@@ -124,13 +122,6 @@ export class Doctor extends React.PureComponent { // eslint-disable-line react/p
     );
   }
 }
-
-const Center = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
-`;
 
 const ListGroup = styled.div`
   display: flex;

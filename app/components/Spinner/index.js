@@ -35,6 +35,10 @@ class Spinner extends React.PureComponent {
 
 const Center = styled.div`
   text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
 `;
 
 Spinner.propTypes = {
