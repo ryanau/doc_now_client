@@ -5,8 +5,6 @@
  */
 
 import {
-  LOAD_DOCTORS,
-  DOCTORS_LOADED,
   OPEN_MODAL,
   CLOSE_MODAL,
   SUBMIT_BOOKING,
@@ -19,20 +17,6 @@ export function displayError(error) {
   return {
     type: DISPLAY_ERROR,
     payload: error,
-  };
-}
-
-export function loadDoctors(params) {
-  return {
-    type: LOAD_DOCTORS,
-    payload: params,
-  };
-}
-
-export function doctorsLoaded(data) {
-  return {
-    type: DOCTORS_LOADED,
-    payload: data,
   };
 }
 

@@ -23,10 +23,10 @@ class ListItem extends React.PureComponent {
         <ListGroupItem>
           <FixedView>
             <Description>
-              {d.get('chinese_name')}
+              {d.chinese_name}
               <Label>
                 <StyledWalkIcon />
-                {d.get('walk')}
+                {d.walk}
                 <MinWrapper>
                   <FormattedMessage {...messages.min} />
                 </MinWrapper>
@@ -35,7 +35,7 @@ class ListItem extends React.PureComponent {
             <Buttons>
               <InfoGroup>
                 <Address>
-                  <p><Glyphicon glyph="home" /> {d.get('chinese_address')}</p>
+                  <p><Glyphicon glyph="home" /> {d.chinese_address}</p>
                   <p><Glyphicon glyph="ok" /> <FormattedMessage {...messages.specialty} /></p>
                 </Address>
                 <Experiment name="book_button_clicked">

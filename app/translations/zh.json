@@ -16,7 +16,7 @@
   "app.components.ListItem.nextStep": "下一步",
   "app.components.ListItem.specialty": "普通科",
   "app.components.Modal.bookingNumber": "預約號碼:",
-  "app.components.Modal.hkid": "身分證號碼（可括免）",
+  "app.components.Modal.hkid": "身分證號碼（可不填）",
   "app.components.Modal.hkidWhy": "診所或需您的身分證號碼以確認身分",
   "app.components.Modal.intro": "請填寫以下的個人資料。您的資料謹作預約用途，並會透過SSL加密技術以作傳送。",
   "app.components.Modal.name": "姓名（須填）",

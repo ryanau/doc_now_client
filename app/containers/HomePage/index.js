@@ -16,23 +16,17 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Alert } from 'react-bootstrap';
 
+import { loadDoctors } from 'entities/doctors/actions';
+import { getDoctors } from 'entities/doctors/selectors';
 import Spinner from 'components/Spinner';
 import AllDistricts from 'components/buttons/AllDistricts';
 import ListItem from './components/ListItem';
 import Modal from './components/Modal';
 import Welcome from './components/Welcome';
 import messages from './messages';
-import {
-  loadDoctors,
-  openModal,
-  closeModal,
-  submitBooking,
-  changeStatus,
-  displayError,
-} from './actions';
+import { openModal, closeModal, submitBooking, changeStatus, displayError } from './actions';
 import {
   getDoctorSelected,
-  getDoctors,
   getStatus,
   getIsModalOpen,
   getIsSubmitted,
@@ -88,7 +82,7 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
     } else {
       doctorsList = doctors.map((d) => (
         <ListItem
-          key={d.get('id')}
+          key={d.id}
           doctor={d}
           openModal={handleOpenModal}
         />

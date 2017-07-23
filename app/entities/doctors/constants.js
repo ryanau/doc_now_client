@@ -1,0 +1,2 @@
+export const LOAD_DOCTORS = 'LOAD_DOCTORS';
+export const DOCTORS_LOADED = 'DOCTORS_LOADED';

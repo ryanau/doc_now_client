@@ -51,6 +51,9 @@ import './global-styles';
 // Import root routes
 import createRoutes from './routes';
 
+// Import global sagas
+import { injectGlobalSagas } from './sagas';
+
 // Initializations
 initializeMixpanel(document, window, process.env.NODE_ENV);
 mixpanelHelper.enable();
@@ -68,6 +71,9 @@ const store = configureStore(initialState, browserHistory);
 const history = syncHistoryWithStore(browserHistory, store, {
   selectLocationState: makeSelectLocationState(),
 });
+
+// Inject global sagas
+injectGlobalSagas(store);
 
 // Set up the router, wrapping all Routes in the App component
 const rootRoute = {

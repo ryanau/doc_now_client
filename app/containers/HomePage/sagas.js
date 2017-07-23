@@ -1,23 +1,9 @@
 import { fork, take, call, put } from 'redux-saga/effects';
 
-import { get, post } from 'utils/request';
+import { post } from 'utils/request';
 import apiEndpoints from 'utils/apiEndpoints';
-import {
-  LOAD_DOCTORS,
-  SUBMIT_BOOKING,
-} from './constants';
-import { doctorsLoaded, bookingSubmitted } from './actions';
-
-export function* loadDoctors(action) {
-  try {
-    const url = apiEndpoints.doctors.collection;
-    const data = yield call(get, url, action.payload);
-    mixpanel.track('doctors_loaded', { number: data.doctors.length });
-    yield put(doctorsLoaded(data));
-  } catch (error) {
-    console.log(error);
-  }
-}
+import { SUBMIT_BOOKING } from './constants';
+import { bookingSubmitted } from './actions';
 
 export function* submitBooking({ payload }) {
   try {
@@ -26,13 +12,6 @@ export function* submitBooking({ payload }) {
     yield put(bookingSubmitted(data));
   } catch (error) {
     console.log(error);
-  }
-}
-
-export function* doctorFlow() {
-  while (true) {
-    const action = yield take(LOAD_DOCTORS);
-    yield fork(loadDoctors, action);
   }
 }
 
@@ -45,7 +24,6 @@ export function* bookingFlow() {
 
 
 export default [
-  doctorFlow,
   bookingFlow,
 ];
 

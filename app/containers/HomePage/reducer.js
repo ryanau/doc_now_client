@@ -6,9 +6,8 @@
 
 import { fromJS } from 'immutable';
 
+import { LOAD_DOCTORS, DOCTORS_LOADED } from 'entities/doctors/constants';
 import {
-  LOAD_DOCTORS,
-  DOCTORS_LOADED,
   OPEN_MODAL,
   CLOSE_MODAL,
   BOOKING_SUBMITTED,
@@ -34,7 +33,7 @@ function homePageReducer(state = initialState, { type, payload }) {
       return state.set('status', FETCHING);
     }
     case DOCTORS_LOADED: {
-      return state.merge({ doctors: payload.doctors, status: LOADED });
+      return state.merge({ status: LOADED });
     }
     case OPEN_MODAL: {
       return state.merge({ doctorSelected: payload, isModalOpen: true });
