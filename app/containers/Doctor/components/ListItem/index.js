@@ -27,7 +27,7 @@ class ListItem extends React.PureComponent {
               <InfoGroup>
                 <Address>
                   <p><Glyphicon glyph="home" /> {d.chinese_address}</p>
-                  <p><Glyphicon glyph="ok" /> <FormattedMessage {...messages.specialty} /></p>
+                  <p><Glyphicon glyph="ok" /> {d.specialty}</p>
                 </Address>
                 <Experiment name="book_button_clicked">
                   <Variant name="next_step">
